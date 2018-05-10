@@ -4,12 +4,73 @@
     <title>Words</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script type="text/javascript">
-        (function() {
+        $(document).ready(function() {
+          var input = document.getElementById("input").value
+          document.getElementById("results").innerHTML = "You typed: " + input
+              $("button").click(function(){
+                $.get("http://localhost:4444/echo?word=" + document.getElementById("input").value, function(data,status){
+                  alert(data);
+                })
+              })
+
+            // var xhr:
+            //
+            // if(typeof XMLHttpRequest !== 'undefined') xhr = new XMLHttpRequest();
+            // else{
+            //   document.write("Your browser sucks")
+            // }
+            // xhr.onreadystatechange = something;
+            //
+            // function something(){
+            //   if(xhr.readyState < 4){
+            //     return;
+            //   }
+            //   if(xhr.status !==200){
+            //     alert("problem!")
+            //     return;
+            //   }
+            //
+            //   console.log(xhr.responseText);
+            // }
+            //
+            // xhr.open('GET', 'test.txt', true);
+            // xhr.send('');
+            //
+            // load('test.txt', function(){
+            //   console.log(xhr.responseText):
+            // });
             // TODO: your JavaScript goes here!
         }());
+        // function sayHello() {
+        //   document.write("Hello World")
+        //   alert("hihi")
+        // };
+        //
+        // function getValue(){
+        //   var retVal = prompt("Enter word: ", "type here");
+        //   document.write("You have entered : " + retVal);
+        // };
+        //
+        // function getText(){
+        //   var input = document.getElementById("input").value
+        //   document.getElementById("results").innerHTML = "You typed: " + input
+        //   $.get("http://localhost:4444/echo?word=" + document.getElementById("input").value, function(data, status){
+        //       alert("You typed: " + data + "Status:" + status);
+        //   }
+        //
+        //   //make a call to the java functions
+        // });
+
     </script>
 </head>
 <body>
-    <!-- HTML goes here to accept input word and display results from the 3 AJAX calls to http://localhost:4444 -->
+    <button>run</button>
+  
+     <!-- HTML goes here to accept input word and display results from the 3 AJAX calls to http://localhost:4444 -->
+    <!-- <input type = "button" onclick="getText()" value = "click"/> -->
+    <form>
+      <input type = "text" id="input" size = "30">
+    </form>
+    <p id="results"></p>
 </body>
 </html>

@@ -19,8 +19,28 @@ public final class HavaloCodingChallenge {
      * "123321" -> true
      */
     public static boolean isPalindrome(String word) {
-        // TODO: your java code here!
+
+
+        int left = 0;
+        int right = word.length()-1;
+        return recursivePalindrome(word, left, right);
+
+    }
+
+    public static boolean recursivePalindrome(String word, int left, int right){
+      if(word.charAt(left) != word.charAt(right)){
         return false;
+      }
+      else{
+        word = word.substring(left+1, right);
+        if(word.length()==1 || word.length()==0){
+          return true;
+        }
+        else{
+          return recursivePalindrome(word, 0, word.length()-1);
+        }
+
+      }
     }
 
     /**
@@ -33,9 +53,18 @@ public final class HavaloCodingChallenge {
      * "12341" -> true
      */
     public static boolean containsDuplicateCharacters(String word) {
-        // TODO: your java code here!
+
+        for(int i =0; i<word.length()-1; i++){
+          for(int j = i+1; j<word.length(); j++){
+            if(word.charAt(i) == word.charAt(j)){
+              return true;
+            }
+          }
+        }
         return false;
     }
+
+
 
     /**
      * Must return the reverse string representation of the input string.
@@ -45,8 +74,11 @@ public final class HavaloCodingChallenge {
      * "havalo" -> "olavah"
      */
     public static String reverseWord(String word) {
-        // TODO: your java code here!
-        return word;
+        String reversed = "";
+        for(int i= word.length()-1; i>=0; i--){
+          reversed += word.charAt(i);
+        }
+        return reversed;
     }
 
     // ------------------------------------------------------------------------------
