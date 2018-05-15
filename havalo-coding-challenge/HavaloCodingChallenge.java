@@ -21,9 +21,16 @@ public final class HavaloCodingChallenge {
     public static boolean isPalindrome(String word) {
 
 
-        int left = 0;
-        int right = word.length()-1;
-        return recursivePalindrome(word, left, right);
+       
+        if(word.length()==1){
+            return true;
+        }
+        else{
+            int left = 0;
+            int right = word.length()-1;
+            return recursivePalindrome(word, left, right);
+        }
+        
 
     }
 

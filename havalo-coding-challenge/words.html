@@ -2,75 +2,152 @@
 <html>
 <head>
     <title>Words</title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-          var input = document.getElementById("input").value
-          document.getElementById("results").innerHTML = "You typed: " + input
-              $("button").click(function(){
-                $.get("http://localhost:4444/echo?word=" + document.getElementById("input").value, function(data,status){
-                  alert(data);
-                })
-              })
 
-            // var xhr:
-            //
-            // if(typeof XMLHttpRequest !== 'undefined') xhr = new XMLHttpRequest();
-            // else{
-            //   document.write("Your browser sucks")
-            // }
-            // xhr.onreadystatechange = something;
-            //
-            // function something(){
-            //   if(xhr.readyState < 4){
-            //     return;
-            //   }
-            //   if(xhr.status !==200){
-            //     alert("problem!")
-            //     return;
-            //   }
-            //
-            //   console.log(xhr.responseText);
-            // }
-            //
-            // xhr.open('GET', 'test.txt', true);
-            // xhr.send('');
-            //
-            // load('test.txt', function(){
-            //   console.log(xhr.responseText):
-            // });
-            // TODO: your JavaScript goes here!
-        }());
-        // function sayHello() {
-        //   document.write("Hello World")
-        //   alert("hihi")
-        // };
-        //
-        // function getValue(){
-        //   var retVal = prompt("Enter word: ", "type here");
-        //   document.write("You have entered : " + retVal);
-        // };
-        //
-        // function getText(){
-        //   var input = document.getElementById("input").value
-        //   document.getElementById("results").innerHTML = "You typed: " + input
-        //   $.get("http://localhost:4444/echo?word=" + document.getElementById("input").value, function(data, status){
-        //       alert("You typed: " + data + "Status:" + status);
-        //   }
-        //
-        //   //make a call to the java functions
+    <!-- CSS toolkit "BlazeUI" -->
+    <link rel="stylesheet" href="https://unpkg.com/blaze@4.0.0-6/scss/dist/blaze.min.css">
+
+    <!-- AJAX Library -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js">
+    </script>
+
+    <!-- Javascript -->
+    <script type="text/javascript">
+
+      //Page on load function
+      (function(){
+        console.log("Words.html page has loaded!")
+
+        var form = $('theForm');
+
+        form.submit(function(e) {
+          e.preventDefault()
+          // var x = document.getElementById("theText").value
+          console.log("submitting")
+    ;
+});
+
+      }());
+
+      function test(){
+        console.log("hey")
+      };
+
+
+      //3 AJAX calls
+      function doThis(){
+        
+
+        var input = document.getElementById("input").value
+        console.log("User input: " + input)
+
+        if(input== ""){
+            alert("Please enter a word of at least 1 character");
+          }
+
+        else{
+
+          $.ajax({
+          type:"GET",
+          url: "http://localhost:4444/palindrome?word=" + input,
+          success: function(data){
+            $("#palindrome").empty();
+            $("#palindrome").append(data);
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+              alert(jqXHR.textStatus);
+          },
+        });
+
+        //call for duplicate letters
+        $.ajax({
+          type:"GET",
+          url: "http://localhost:4444/duplicates?word=" + input,
+          success: function(data){
+            $("#duplicate").empty();
+            $("#duplicate").append(data);
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+              alert(jqXHR.textStatus);
+          },
+        });
+
+        //call for reversed word
+        $.ajax({
+          type:"GET",
+          url: "http://localhost:4444/reverse?word=" + input,
+          success: function(data){
+            //if palindrome is true, then write the same word
+           $("#reversed").empty();
+            $("#reversed").append(data);
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+              alert(jqXHR.textStatus);
+          },
+        });
+
+        }
+        //call for palindrome
+        
+
+      };
+
+  
+
+
+      //Validate form is not empty 
+      function validateForm(){
+        // $("#theForm").submit(function(e){
+        //   e.preventDefault();
         // });
+          var x = document.forms["theForm"]["theText"].value
+          console.log(x)
+          if(x== ""){
+            alert("Please enter a word of at least 1 character");
+
+            return false;
+          }
+      }
+
+
+;
+
+
+        
 
     </script>
 </head>
 <body>
-    <button>run</button>
-  
-     <!-- HTML goes here to accept input word and display results from the 3 AJAX calls to http://localhost:4444 -->
-    <!-- <input type = "button" onclick="getText()" value = "click"/> -->
-    <form>
-      <input type = "text" id="input" size = "30">
-    </form>
-    <p id="results"></p>
+
+
+
+    <input id="input" type="text" value="" autocomplete="off">
+    <button onclick="doThis()">Click</button>
+    <h3>palindrome: </h3> <div id = "palindrome"></div>
+    <h3>contains duplicates: </h3> <div id = "duplicate"></div>
+    <h3 >reversed: </h3><div id = "reversed"></div>
+
+
+
+
+<!--     <form id="theForm" onsubmit="return validateForm()">
+      <input type = "text" id ="theText">
+      <input type ="submit" value="go"> -->
+      <!-- <button id="abc" onclick="doThis()">Click</button>
+    </form> -->
+
+    
+
+<!--     <div class="o-drawer u-highest o-drawer--left o-drawer--visible">
+      <div class="c-card">
+        Heading
+      </div>
+      This is a drawer
+      <div class="c-input-group">
+        <button class="c-button" type="button">Button</button>
+        <button class="c-button" type="button">Button</button>
+        <button class="c-button" type="button">Button</button>
+    </div> -->
+
+    
 </body>
 </html>
