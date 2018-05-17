@@ -1,10 +1,97 @@
 <!doctype html>
 <html>
+
+<style type="text/css">
+
+.o-image{
+  margin:10px, 10px;
+}
+
+.o-media__body{
+  margin: 10px, 10px;
+}
+
+
+h3 {
+    color: black;
+    font-family: arial;
+    font-size: 100%;
+    position: relative;
+}
+div p  {
+    color: black;
+    font-family: lucida Console;
+    font-size: 100%;
+   /* border: 1px solid red;*/
+    padding: 5px;
+    position: relative;
+}
+
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s;
+     /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+    
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+   
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+</style>
+
 <head>
     <title>Words</title>
 
+
     <!-- CSS toolkit "BlazeUI" -->
     <link rel="stylesheet" href="https://unpkg.com/blaze@4.0.0-6/scss/dist/blaze.min.css">
+
+    <!-- BlazeUI Javascript Component -->
+    <script src="https://unpkg.com/blaze@4.0.0-6/atoms/dist/blaze-atoms.js">
+ 
+    </script>
 
     <!-- AJAX Library -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js">
@@ -13,24 +100,25 @@
     <!-- Javascript -->
     <script type="text/javascript">
 
+
+
+
       //Page on load function
       (function(){
         console.log("Words.html page has loaded!")
 
-        var form = $('theForm');
 
-        form.submit(function(e) {
-          e.preventDefault()
-          // var x = document.getElementById("theText").value
-          console.log("submitting")
-    ;
-});
+        $( document ).ready(function() {
+          var x = document.getElementById("theDrawer")
+         var y = document.getElementById("theOverlay")
+         x.style.display="none"
+         y.style.display="none"
+          console.log( "ready!" );
+        });
+         
 
       }());
 
-      function test(){
-        console.log("hey")
-      };
 
 
       //3 AJAX calls
@@ -46,6 +134,7 @@
 
         else{
 
+          //call for palindrome 
           $.ajax({
           type:"GET",
           url: "http://localhost:4444/palindrome?word=" + input,
@@ -87,10 +176,7 @@
 
         }
         //call for palindrome
-        
-
       };
-
   
 
 
@@ -106,82 +192,170 @@
 
             return false;
           }
-      }
+      };
 
+      //drawer function
 
-;
+function openNav() {
+    document.getElementById("mySidenav").style.display = "block";
+    document.getElementById("mySidenav").style.width = "200px";
+}
 
+/* Close/hide the sidenav */
+function closeNav() {
+    document.getElementById("mySidenav").style.display = "none";
+}
+
+function myFunction() {
+    var x = document.getElementById("theDrawer")
+    var y = document.getElementById("theOverlay")
+
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        y.style.display = "block";
+      
+    } else {
+        x.style.display = "none";
+        y.style.display = "none";
+       
+    }
+}
 
         
 
+ 
+
     </script>
 </head>
-<body>
-
-
-
-    <input id="input" type="text" value="" autocomplete="off">
-    <button onclick="doThis()">Click</button>
-    <h3>palindrome: </h3> <div id = "palindrome"></div>
-    <h3>contains duplicates: </h3> <div id = "duplicate"></div>
-    <h3 >reversed: </h3><div id = "reversed"></div>
+<body background = "https://wallpapercave.com/wp/0mDa4rQ.jpg">
 
 
 
 
-<!--     <form id="theForm" onsubmit="return validateForm()">
-      <input type = "text" id ="theText">
-      <input type ="submit" value="go"> -->
-      <!-- <button id="abc" onclick="doThis()">Click</button>
-    </form> -->
 
-    
 
-<!--     <div class="o-drawer u-highest o-drawer--left o-drawer--visible">
-      <div class="c-card">
-        Heading
-      </div>
-      This is a drawer
-      <div class="c-input-group">
-        <button class="c-button" type="button">Button</button>
-        <button class="c-button" type="button">Button</button>
-        <button class="c-button" type="button">Button</button>
-    </div> -->
+<!-- 
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
+ -->
 
-    <div class="u-center-block fixed-height-demo">
-  <div class="u-center-block__content">Hello Blaze</div>
+
+
+
+
+
+
+<!-- container -->
+<div class="o-container o-container--large">
+
+
+
+<!-- title bar            -->
+<div class="c-card" onclick="myFunction()">
+  <div class="c-card__item o-media">
+    <div class="o-media__image o-media__image">
+      <img class="o-image" src="https://image.flaticon.com/icons/svg/284/284741.svg"/>
+    </div>
+    <div class="o-media__body">
+      <h2 class="c-heading">Havalo Coding Challenge <span class="c-heading__sub"><br>Built with Blaze UI</span></h2>
+      
+    </div>
+  </div>
 </div>
 
 
-<div class="u-center-block fixed-height-demo">
-    <div class="u-absolute-center">Hello Blaze</div>
-  </div>
-
-
-  
-
-    <div class="c-overlay c-overlay--dismissible"></div>
-<div class="o-drawer u-highest o-drawer--left o-drawer--visible">
+<div id="theOverlay" class="c-overlay c-overlay--visible"></div>
+<div id="theDrawer" class="o-modal u-highest">
   <div class="c-card">
     <header class="c-card__header">
       <h2 class="c-heading">
-        Heading
-        <div class="c-heading__sub">Sub-heading</div>
+        About
+        <div class="c-heading__sub">A blurb about myself</div>
       </h2>
     </header>
     <div class="c-card__body">
-      This is a drawer
+      
+      <div class="u-center-block fixed-height-demo">
+  <div class="u-center-block__content">
+    <div id="aboutPic" class="o-media__image o-media__image--center">
+      <img class="o-image" src="https://i.pinimg.com/originals/25/dd/1a/25dd1a1eeda3c375c7c623c55aa97714.jpg"/>
+
+
+  </div>
+
+</div>
+</div>
+       <p class="c-paragraph">
+     
+        <br>
+        <br>
+
+        Hi! My name is Vivian, and this website was created for Havalo's coding challenge for summer of 2018. It was built with Blaze UI and utilizes JQuery AJAX calls. It's my first time building something like this on my own, and I learned so much about basic web-dev thanks to this little project!
+<br><br>
+      A bit about myself... I'm a 3rd year SJSU student majoring in Software Engineering, with a passion for design. I am currently the clubroom manager (soon to be treasurer) of our Society of Women Engineers. My hobbies include rock climbing and surfing. I love computers, tech, mechanical keyboards, video games, and staying up late at night. (I've spent too many nights in the library and the engineering building.)
+<br><br>
+If you liked my website, please feel free to e-mail me at vivz753@gmail.com!
+
+<br>
+<br>
+Created as of May 17, 2018.
+       </p>
+    
+      
     </div>
-    <footer class="c-card__footer">
+    <footer class="c-card__footer c-card__footer--block">
       <div class="c-input-group">
-        <button class="c-button c-button--block">Buy</button>
-        <button class="c-button c-button--block">Buy</button>
-        <button class="c-button c-button--block">Buy</button>
+        <button onclick="myFunction()" class="c-button c-button--block c-button--info">Take me back to the website!</button>
+   
       </div>
     </footer>
   </div>
 </div>
 
+
+
+<!-- centered content  -->
+  <div class="u-center-block__content">
+
+
+
+
+
+              <div class="o-grid o-grid--full o-grid--demo">
+  <div class="o-grid__cell">
+    <div class="o-grid-text">
+       <input id="input"class="c-field" placeholder="Type in here..." type="text"  autocomplete="off" />
+              <button type="button" class="c-button c-button--error c-button--block" onclick="doThis()">Go</button>
+    </div>
+  </div>
+  <div class="o-grid__cell">
+    <div class="o-grid-text">
+      <div class = "c-card">
+              <div class="o-media__body">
+                <h3>palindrome: </h3> <p id ="palindrome"></p>
+              <h3>contains duplicates: </h3> <p id = "duplicate"></p>
+              <h3 >reversed: </h3><p id = "reversed"></p>
+              
+              </div>
+              </div>
+    </div>
+  </div>
+  <div class="o-grid__cell">
+    
+  </div>
+</div>
+
+              
+            </div>
+</div>
+
+
+  </div>
 
 
     
